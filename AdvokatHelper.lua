@@ -96,7 +96,7 @@ function UpdateTD(table)
 		renderFontDrawText(font, zeksText, userscreenX/3 + 30, userscreenY - 45, colormsg)
 	else
 		for i = 1, #table do
-			zeksText = table[i][5] ..table[i][1] .. " " .. " | " .. table[i][3] .. "зв. | " .. table[i][4] .. " (" .. table[i][2] .. ")\n"
+			zeksText = table[i][5] ..table[i][1] .. " | " .. table[i][3] .. "зв. | " .. table[i][4] .. " (" .. table[i][2] .. ")\n"
 			renderFontDrawText(font, zeksText, userscreenX/3 + 30, (userscreenY - 45) - (i-1)*15, colormsg)
 		end
 	end
@@ -124,7 +124,6 @@ function IsZeksResponse(text)
 	if text:find("В данный момент в КПЗ отсутствуют заключенные!") then -- Получили ответ на /zeks
 		zeki = {} -- Очищаем таблицу зеков
 		return true
-	--end
 	elseif (text:find("Время") and text:find("Залог") and text:find("КПЗ")) then -- Поймали сообщение - нужно добавить в таблицу
 		nameid = string.sub(text, string.find(text, '.+%(%d+%)')) -- Ivan_Pupkin(123)
 		id = math.floor(tonumber(nameid:match("%d+"))) -- 123
