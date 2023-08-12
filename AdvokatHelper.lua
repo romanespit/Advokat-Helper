@@ -130,7 +130,7 @@ function IsZeksResponse(text)
 		time = string.sub(text, string.find(text, '%d+%sмин')) -- Сколько осталось сидеть
 		zalog = string.sub(text, string.find(text, '%$[%d+%p]+')):gsub("%p", "") -- Сумма залога, если есть MoneySeparator, удаляем знаки пунктуации
 		wanted = math.floor(tonumber(zalog/4000)) -- Звезды = Залог / 4000
-		kpz = string.sub(text, string.find(text, 'КПЗ:%s.+PD')) -- В каком КПЗ
+		kpz = string.sub(text, string.find(text, 'КПЗ:%s.+')) -- В каком КПЗ
 		if kpz then kpz = GetShortKPZName(kpz) else kpz = "???" end -- Сокращаем КПЗ
 		if string.find(text, 'Адвокат:%s.+') then advokat = "{919191}[".. text:match("Адвокат:%s.+") .."] " color = 0xFF919191  -- Если находим, значит есть адвокат
 		elseif string.find(text, 'В ожидании адвоката') then advokat = "{FFD700}[ЖДЁТ АДВОКАТА] " color = colormsg -- Если находим, значит адвоката нет
@@ -147,6 +147,7 @@ function GetShortKPZName(kpz) -- Сокращаем ПД
 	elseif kpz:match("San Fierro PD") then kpz = "SFPD"
 	elseif kpz:match("Los Santos PD") then kpz = "LSPD"
 	elseif kpz:match("Red County PD") then kpz = "RCPD"
+	elseif kpz:match("Неизвестно") then kpz = "RCPD"
 	end
 	return kpz
 end
