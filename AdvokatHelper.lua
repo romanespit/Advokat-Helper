@@ -147,7 +147,7 @@ function GetShortKPZName(kpz) -- Сокращаем ПД
 	elseif kpz:match("San Fierro PD") then kpz = "SFPD"
 	elseif kpz:match("Los Santos PD") then kpz = "LSPD"
 	elseif kpz:match("Red County PD") then kpz = "RCPD"
-	elseif kpz:match("Неизвестно") then kpz = "RCPD"
+	elseif kpz:match("Неизвестно") then kpz = "???"
 	end
 	return kpz
 end
