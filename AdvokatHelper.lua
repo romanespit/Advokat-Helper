@@ -117,6 +117,13 @@ end
 function sampev.onServerMessage(color,text) -- Ловим полученный ответ на команду /zeks
 	if IsZeksResponse(text) then
 		if not settings.main.sendOriginalMessage then return false end -- Если false, блокируем пакет
+	elseif text:match("Вы не адвокат") and (settings.main.autoUpdate == true or settings.main.sendOriginalMessage == false) then
+		settings.main.autoUpdate = false
+		settings.main.sendOriginalMessage = true
+		inicfg.save(settings, 'Advokat Helper\\settings')
+		timer = -1
+		sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Вы не адвокат! Автообновление выключено и серверные ответы включены.', colorinit)
+		return false
 	end			
 end
 
