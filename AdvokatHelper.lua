@@ -1,6 +1,7 @@
 script_name("Advokat Helper")
 script_author("romanespit")
-script_version("1.0")
+SCR_VERSION = "1.0"
+script_version(SCR_VERSION)
 script_description('Периодическая проверка заключенных')
 
 local sampev = require 'lib.samp.events'
@@ -18,9 +19,9 @@ local settings = inicfg.load({
 }, 'Advokat Helper\\settings')
 
 COLOR_WHITE = '{FFFFFF}'
-initcolor = '{1A3D8A}'
+initcolor = '{3B66C5}'
 msgcolor = '{FFD700}'
-colorinit = 0xFF1A3D8A
+colorinit = 0xFF3B66C5
 colormsg = 0xFFFFD700
 zeki = {}
 font = renderCreateFont('Tahoma', 10, 5)
@@ -37,21 +38,21 @@ function main()
 		timer = nowTime + 30
 	end
 	wait(1000)
-    sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Успешная загрузка скрипта. Используйте: '..initcolor..'/adh{FFFFFF}. Автор: '..initcolor..'romanespit', colorinit)
+    sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Успешная загрузка скрипта. Используйте: '..initcolor..'/adh{FFFFFF}. Автор: '..initcolor..'romanespit', colorinit)
 	sampRegisterChatCommand('adh', function( )
-        sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Версия скрипта: 1.0. Автор: romanespit. Telegram: @arzadh', colorinit)	
-        sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}/adh_chat - включить/выключить ответы сервера на команду /zeks', colorinit)	
-        sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}/adh_autoupdate - включить/выключить автоматическое обновление КПЗ', colorinit)
+        sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Версия скрипта: '..initcolor..SCR_VERSION..'{FFFFFF}. Автор: '..initcolor..'romanespit{FFFFFF}. Telegram: '..initcolor..'@arzadh', colorinit)	
+        sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: /adh_chat - включить/выключить ответы сервера на команду /zeks', colorinit)	
+        sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: /adh_autoupdate - включить/выключить автоматическое обновление КПЗ', colorinit)
     end)
     sampRegisterChatCommand('adh_chat', function( )
         if settings.main.sendOriginalMessage then
 			settings.main.sendOriginalMessage = false
 			inicfg.save(settings, 'Advokat Helper\\settings')
-			sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Серверные ответы на команду /zeks выключены', colorinit)
+			sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Серверные ответы на команду /zeks выключены', colorinit)
 		else 
 			settings.main.sendOriginalMessage = true
 			inicfg.save(settings, 'Advokat Helper\\settings')
-			sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Серверные ответы на команду /zeks включены', colorinit)
+			sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Серверные ответы на команду /zeks включены', colorinit)
 		end
     end)
     sampRegisterChatCommand('adh_autoupdate', function( )
@@ -59,13 +60,13 @@ function main()
 			settings.main.autoUpdate = false
 			inicfg.save(settings, 'Advokat Helper\\settings')
 			timer = -1
-			sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Автообновление КПЗ выключено', colorinit)
+			sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Автообновление КПЗ выключено', colorinit)
 		else 
 			settings.main.autoUpdate = true
 			inicfg.save(settings, 'Advokat Helper\\settings')
 			local nowTime = os.time()
 			timer = nowTime + 5
-			sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Автообновление КПЗ включено', colorinit)
+			sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Автообновление КПЗ включено', colorinit)
 		end
     end)
 	while true do
@@ -90,6 +91,7 @@ function main()
 	end
     wait(-1)
 end
+
 function UpdateTD(table)
 	if #table == 0 then
 		zeksText = '{919191}Пусто'
@@ -122,7 +124,7 @@ function sampev.onServerMessage(color,text) -- Ловим полученный ответ на команду
 		settings.main.sendOriginalMessage = true
 		inicfg.save(settings, 'Advokat Helper\\settings')
 		timer = -1
-		sampAddChatMessage('[ Advokat Helper ]: {FFFFFF}Вы не адвокат! Автообновление выключено и серверные ответы включены.', colorinit)
+		sampAddChatMessage('[ Advokat Helper ]{FFFFFF}: Вы не адвокат! Автообновление выключено и серверные ответы включены.', colorinit)
 		return false
 	end			
 end
@@ -147,7 +149,6 @@ function IsZeksResponse(text)
 	end
 	
 end
-
 
 function GetShortKPZName(kpz) -- Сокращаем ПД
 	if kpz:match("Las Venturas PD") then kpz = "LVPD"
